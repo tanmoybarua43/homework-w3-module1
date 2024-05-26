@@ -79,6 +79,47 @@
     </div>
   </footer>
   <!-- Footer Finised -->
+
+  <!-- JavaScript -->
+  <script>
+    // create a data function
+    function currentTime() {
+      var date = new Date();
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var seconds = date.getSeconds();
+      var ampm;
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      } 
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+      // determine AM and PM string
+      if (hours < 12) {
+        ampm = "AM";
+      } else {
+        ampm = "PM";
+      }
+      // create the time string
+      var time = hours + ":" + minutes + ":" + seconds + " " + ampm;
+      // Calculate time zone
+      // var gmtHour = date.getUTCHours();
+      // var timeDifference = hours - gmtHour;
+      // if (timeDifference < 0) {
+      //     timeDifference += 24;
+      // }
+      // var timeZone = "GMT" + (timeDifference > 0 ? "+" : "") + timeDifference;
+
+      // // Append time zone to the time format
+      // time += " " + timeZone;
+      const timeZone = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' }).formatToParts(date).find(part => part.type === 'timeZoneName').value;
+      // display the time in the element with id clock
+      document.getElementById('clock').innerHTML = time+" "+timeZone;
+    }
+    // call the function every second
+    setInterval(currentTime, 1000);
+  </script>
 </body>
 
 </html>
